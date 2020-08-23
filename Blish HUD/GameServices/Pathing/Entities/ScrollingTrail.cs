@@ -15,6 +15,7 @@ namespace Blish_HUD.Pathing.Entities {
         private float _fadeFar = 900;
         private float _scale = 1;
         private float _opacity = 1;
+        private bool _fadeCenter = true;
 
         public float AnimationSpeed {
             get => _animationSpeed;
@@ -64,6 +65,14 @@ namespace Blish_HUD.Pathing.Entities {
             }
         }
 
+        public bool FadeCenter {
+            get => _fadeCenter;
+            set {
+                if (SetProperty(ref _fadeCenter, value))
+                    _sections.ForEach(s => s.FadeCenter = value);
+            }
+        }
+
         private readonly List<ScrollingTrailSection> _sections;
 
         public ScrollingTrail(List<List<Vector3>> trailSections) {
@@ -91,6 +100,7 @@ namespace Blish_HUD.Pathing.Entities {
             newSection.Scale = _scale;
             newSection.TrailTexture = _trailTexture;
             newSection.Opacity = _opacity;
+            newSection.FadeCenter = _fadeCenter;
 
             _sections.Add(newSection);
         }
